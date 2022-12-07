@@ -11,6 +11,8 @@ schema:
     - 方案修改：tram
   description: |
     码表源自 20120309版本
+  dependencies:
+    - english
 
 
 switches:
@@ -33,6 +35,7 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
+    - "affix_segmentor@veng" #临时英文
     - abc_segmentor
     - punct_segmentor
     - fallback_segmentor
@@ -40,6 +43,7 @@ engine:
     - echo_translator
     - punct_translator
     - table_translator
+    - table_translator@veng #临时英文
 
 speller:
   alphabet: 'abcdefghijklmnopqrstuvwxyz;,./'
@@ -59,6 +63,18 @@ translator:
   encode_commit_history: true
   max_phrase_length: 4
   enable_user_dict: true
+
+veng:
+  dictionary: english
+  tag: veng
+  prefix: "'"
+  suffix: " "
+  tips: "〔临时英文〕"
+  enable_completion: true
+  enable_encoder: false
+  enable_user_dict: false
+  enable_sentence: false
+  initial_quality: -1
 
 punctuator:
   full_shape:
@@ -104,3 +120,4 @@ recognizer:
     reverse_lookup: "^`[a-z]*'?$"
     i_reverse_lookup_pattern: "^i[a-z;,./]+$"
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$"
+    veng: "^'.*$"
