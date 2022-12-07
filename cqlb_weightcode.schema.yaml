@@ -14,6 +14,8 @@ schema:
   dependencies:
     - english
 
+menu:
+  page_size: 6 #候选项数
 
 switches:
   - name: ascii_mode
