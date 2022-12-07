@@ -35,12 +35,16 @@ switches:
   - name: zh_trad
     reset: 0
     states: [ 简,繁 ]
+  - name: emoji_suggestion
+    reset: 0
+    states: ["🈚️", "🈶"]
 
 engine:
   filters:
     - simplifier
     - lua_filter@new_spelling@spelling #显隐编码和拼音
     - uniquifier
+    - simplifier@emoji_suggestion #emoji
   processors:
     - ascii_composer
     - recognizer
@@ -90,6 +94,11 @@ lua_reverse_db: #调用bulid里的spelling_lb文件以此来显示编码和拼�
   spelling: spelling_lb
   code: spelling_lb
 
+emoji_suggestion: #emoji表情，调用opencc里的文件
+  opencc_config: emoji.json
+  option_name: emoji_suggestion
+  tips: all
+  
 veng:
   dictionary: english
   tag: veng
@@ -118,6 +127,7 @@ key_binder:
     - {accept: minus, send: Page_Up, when: has_menu}
     - {accept: equal, send: Page_Down, when: has_menu}
     - {accept: "Control+Shift+4", toggle: zh_trad, when: always} #繁简开关
+    - {accept: "Control+Shift+G", toggle: emoji_suggestion, when: always} #emoji
     - {accept: "Control+Shift+H", toggle: new_spelling, when: always} #显隐编码
     - {accept: "Control+Shift+J", toggle: new_hide_pinyin, when: always} #显隐拼音
     - {accept: "Control+Shift+space", toggle: full_shape, when: always}
