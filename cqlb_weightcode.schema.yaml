@@ -13,6 +13,7 @@ schema:
     码表源自 20120309版本
   dependencies:
     - english
+    - spelling_lb
 
 menu:
   page_size: 6 #候选项数
@@ -21,6 +22,12 @@ switches:
   - name: ascii_mode
     reset: 0
     states: [ 中文, 西文 ]
+  - name: new_spelling
+    reset: 0
+    states: [ 隐, 显 ]
+  - name: new_hide_pinyin
+    reset: 1
+    states: [ 音, 哑 ]
   - name: full_shape
     states: [ 半角, 全角 ]
   - name: zh_trad
@@ -67,15 +74,19 @@ translator:
   dictionary: chaoqiang_erbi
   prism: cqlb_weightcode
   enable_charset_filter: true
-  enable_sentence: false
   enable_encoder: true
+  enable_sentence: false
   encode_commit_history: true
-  max_phrase_length: 4
   enable_user_dict: true
+  max_phrase_length: 4
 
 simplifier: #繁简转换
   opencc_config: s2t.json
   option_name: zh_trad
+
+lua_reverse_db: #调用bulid里的spelling_lb文件以此来显示编码和拼音
+  spelling: spelling_lb
+  code: spelling_lb
 
 veng:
   dictionary: english
@@ -122,6 +133,8 @@ key_binder:
     - {accept: minus, send: Page_Up, when: has_menu}
     - {accept: equal, send: Page_Down, when: has_menu}
     - {accept: "Control+Shift+4", toggle: zh_trad, when: always} #繁简开关
+    - {accept: "Control+Shift+H", toggle: new_spelling, when: always} #显隐编码
+    - {accept: "Control+Shift+J", toggle: new_hide_pinyin, when: always} #显隐拼音
     - {accept: "Control+Shift+space", toggle: full_shape, when: always}
     - {accept: "Control+period", toggle: ascii_punct, when: always}
     - when:  composing
