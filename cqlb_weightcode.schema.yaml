@@ -62,6 +62,8 @@ engine:
     - punct_translator
     - table_translator
     - table_translator@veng #临时英文
+    - lua_translator@cheatsheet #键入help出帮助菜单
+    - lua_translator@datetime #键入date出日期等功能
 
 speller:
   alphabet: 'abcdefghijklmnopqrstuvwxyz;,./'
@@ -111,7 +113,6 @@ punctuator:
 
 key_binder:
     bindings:
-    - {accept: ISO_Left_Tab, send: Page_Up, when: composing}
     - {accept: "Shift+Tab", send: Page_Up, when: composing}
     - {accept: Tab, send: Page_Down, when: composing}
     - {accept: minus, send: Page_Up, when: has_menu}
@@ -120,8 +121,8 @@ key_binder:
     - {accept: "Control+Shift+H", toggle: new_spelling, when: always} #显隐编码
     - {accept: "Control+Shift+J", toggle: new_hide_pinyin, when: always} #显隐拼音
     - {accept: "Control+Shift+space", toggle: full_shape, when: always}
-    - {accept: "Control+period", toggle: ascii_punct, when: always}
-    - when:  composing
+    - {accept: "Control+Shift+period", toggle: ascii_punct, when: always}
+    - when: composing
       accept: Control+bracketleft
       send: Escape
 
