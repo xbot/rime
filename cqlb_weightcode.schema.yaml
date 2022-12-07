@@ -30,6 +30,8 @@ switches:
     states: [ 音, 哑 ]
   - name: full_shape
     states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 句读, 符号 ]
   - name: zh_trad
     reset: 0
     states: [ 简,繁 ]
@@ -63,12 +65,10 @@ engine:
 
 speller:
   alphabet: 'abcdefghijklmnopqrstuvwxyz;,./'
-  initials: 'abcdefghijklmnopqrstuvwxyz;,./'
-  auto_select: true
-  auto_select_pattern: '(^[uv].$)|(^[^i].{3}$)|[;,./]'
-  max_code_length: 4
-  algebra:
-    - xform/^([^i].{3}).$/$1/
+  initials: 'abcdefghijklmnopqrstuvwxyz'
+  delimiter: "`"
+  auto_clear: max_length
+  auto_select: true 
 
 translator:
   dictionary: chaoqiang_erbi
@@ -101,29 +101,13 @@ veng:
   initial_quality: -1
 
 punctuator:
-  full_shape:
-    ':' : { commit: ： }
-    '!' : { commit: ！ }
-    '?' : { commit: ？ }
-    "'" : { pair: [ ‘, ’ ] }
-    '"' : { pair: [ “, ” ] }
-    ' ' : { commit: '　' }    
-    '*' : [ ＊, × ]
-    '/' : [ ÷ ]
-    '<' : [ 《, 〈, «, ‹, 〔 ]
-    '>' : [ 》, 〉, », ›,  〕]
-    '(' : { commit: （ }
-    ')' : { commit: ） }
+  import_preset:  symbols #symbols 使用rime自带符号文件|default 不使用
+  full_shape: #全半角符号输出，调用symbols，如果常打某个符号，而其却在候选后面，其它候选符号用不到，可以在这里定义
+    "/" : "、"
+    "=" : "="
   half_shape:
-    ':' : { commit: ： }
-    '!' : { commit: ！ }
-    '?' : { commit: ？ }
-    '<' : { commit: 《 }
-    '>' : { commit: 》 }
-    '(' : { commit: （ }
-    ')' : { commit: ） }
-    "'" : { pair: [ ‘, ’ ] }
-    '"' : { pair: [ “, ” ] }
+    "/" : "、"
+    "=" : "="
 
 key_binder:
     bindings:
