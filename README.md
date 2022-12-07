@@ -1,0 +1,2 @@
+# rime
+My Rime configurations.
