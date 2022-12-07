@@ -21,8 +21,15 @@ switches:
     states: [ 中文, 西文 ]
   - name: full_shape
     states: [ 半角, 全角 ]
+  - name: zh_trad
+    reset: 0
+    states: [ 简,繁 ]
 
 engine:
+  filters:
+    - simplifier
+    - lua_filter@new_spelling@spelling #显隐编码和拼音
+    - uniquifier
   processors:
     - ascii_composer
     - recognizer
@@ -63,6 +70,10 @@ translator:
   encode_commit_history: true
   max_phrase_length: 4
   enable_user_dict: true
+
+simplifier: #繁简转换
+  opencc_config: s2t.json
+  option_name: zh_trad
 
 veng:
   dictionary: english
@@ -108,6 +119,7 @@ key_binder:
     - {accept: Tab, send: Page_Down, when: composing}
     - {accept: minus, send: Page_Up, when: has_menu}
     - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: "Control+Shift+4", toggle: zh_trad, when: always} #繁简开关
     - {accept: "Control+Shift+space", toggle: full_shape, when: always}
     - {accept: "Control+period", toggle: ascii_punct, when: always}
     - when:  composing
