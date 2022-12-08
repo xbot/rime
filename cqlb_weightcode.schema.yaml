@@ -75,6 +75,7 @@ speller:
   delimiter: "`"
   auto_clear: max_length
   auto_select: true 
+  max_code_length: 4
 
 translator:
   dictionary: chaoqiang_erbi
