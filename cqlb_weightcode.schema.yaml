@@ -57,7 +57,8 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
-    - "affix_segmentor@veng" #临时英文
+    - affix_segmentor@mkst #精准造词
+    - affix_segmentor@veng #临时英文
     - abc_segmentor
     - punct_segmentor
     - fallback_segmentor
@@ -65,6 +66,8 @@ engine:
     - echo_translator
     - punct_translator
     - table_translator
+    - table_translator@fixed
+    - table_translator@mkst #精准造词
     - table_translator@veng #临时英文
     - lua_translator@cheatsheet #键入help出帮助菜单
     - lua_translator@datetime #键入date出日期等功能
@@ -80,12 +83,30 @@ speller:
 translator:
   dictionary: chaoqiang_erbi
   prism: cqlb_weightcode
+  initial_quality: 0
   enable_charset_filter: true
-  enable_encoder: true
+  enable_encoder: false
+  enable_completion: true #逐码提示开关
   enable_sentence: false
-  encode_commit_history: true
-  enable_user_dict: true
+  encode_commit_history: false
+  enable_user_dict: false
   max_phrase_length: 4
+
+fixed:
+  __include: /translator
+  initial_quality: 10
+  enable_completion: true
+  enable_encoder: true
+  enable_user_dict: true
+  db_class: tabledb
+
+mkst:
+  __include: /translator
+  initial_quality: 10
+  enable_sentence: true
+  prefix: '`'
+  tips: "〔精准造词〕"
+  tag: mkst
 
 simplifier: #繁简转换
   opencc_config: s2t.json
@@ -142,5 +163,6 @@ recognizer:
   patterns:
     reverse_lookup: "^`[a-z]*'?$"
     i_reverse_lookup_pattern: "^i[a-z;,./]+$"
+    mkst: "^[a-z,;/\\.]*`[a-z,;/\\.\\`]*$"
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$"
     veng: "^'.*$"

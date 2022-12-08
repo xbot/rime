@@ -12,7 +12,7 @@ local function translator(input, seg,env)
 			, { '显隐编码', 'Ctrl + Shift + H' }
 			, { '显隐拼音', 'Ctrl + Shift + J' }
 			, { '临时拼音', 'i 键引导临时拼音及形码' }
-			-- , { '精准造词', '` 键引导精准造词' }
+			, { '精准造词', '` 键引导精准造词' }
 			, { '主页', 'https://github.com/xbot/rime' }
 		}
 		segment.prompt = '简要说明'
