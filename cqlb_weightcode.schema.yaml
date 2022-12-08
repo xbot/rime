@@ -4,14 +4,13 @@
 schema:
   schema_id: cqlb_weightcode
   name: "超强两笔"
-  version: "0.50"
+  version: "1.0"
   author:
-    - 超强两笔发明人：付东升
-    - 方案制作：白云
-    - 方案修改：tram
+    - 付东升
   description: |
-    码表源自 20120309版本
+    超强两笔。按 i 键临时拼音或者用拼音反查编码
   dependencies:
+    - ipinyin
     - english
     - spelling_lb
 
@@ -71,6 +70,7 @@ engine:
     - table_translator@veng #临时英文
     - lua_translator@cheatsheet #键入help出帮助菜单
     - lua_translator@datetime #键入date出日期等功能
+    - table_translator@i+
 
 speller:
   alphabet: 'abcdefghijklmnopqrstuvwxyz;,./'
@@ -81,8 +81,8 @@ speller:
   max_code_length: 4
 
 translator:
-  dictionary: chaoqiang_erbi
-  prism: cqlb_weightcode
+  dictionary: cqlb.user
+  prism: cqlb
   initial_quality: 0
   enable_charset_filter: true
   enable_encoder: false
@@ -133,6 +133,14 @@ veng:
   enable_sentence: false
   initial_quality: -1
 
+i+: #打 i 键引导临时拼音
+  dictionary: ipinyin
+  enable_completion: true
+  enable_sentence: false
+  enable_encoder: false
+  enable_user_dict: false
+  initial_quality: -10
+  
 punctuator:
   import_preset:  symbols #symbols 使用rime自带符号文件|default 不使用
   full_shape: #全半角符号输出，调用symbols，如果常打某个符号，而其却在候选后面，其它候选符号用不到，可以在这里定义
