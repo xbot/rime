@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 schema:
-  schema_id: cqlb_weightcode
+  schema_id: cqlb_extended
   name: "超强两笔"
   version: "1.0"
   author:
@@ -15,7 +15,7 @@ schema:
     - spelling_lb
 
 menu:
-  page_size: 6 #候选项数
+  page_size: 6
 
 switches:
   - name: ascii_mode
@@ -41,9 +41,9 @@ switches:
 engine:
   filters:
     - simplifier
-    - lua_filter@new_spelling@spelling #显隐编码和拼音
+    - lua_filter@new_spelling@spelling
     - uniquifier
-    - simplifier@emoji_suggestion #emoji
+    - simplifier@emoji_suggestion
   processors:
     - ascii_composer
     - recognizer
@@ -56,8 +56,8 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
-    - affix_segmentor@mkst #精准造词
-    - affix_segmentor@veng #临时英文
+    - affix_segmentor@mkst
+    - affix_segmentor@veng
     - abc_segmentor
     - punct_segmentor
     - fallback_segmentor
@@ -66,10 +66,10 @@ engine:
     - punct_translator
     - table_translator
     - table_translator@fixed
-    - table_translator@mkst #精准造词
-    - table_translator@veng #临时英文
-    - lua_translator@cheatsheet #键入help出帮助菜单
-    - lua_translator@datetime #键入date出日期等功能
+    - table_translator@mkst
+    - table_translator@veng
+    - lua_translator@cheatsheet
+    - lua_translator@datetime
     - table_translator@i+
 
 speller:
@@ -81,7 +81,7 @@ speller:
   max_code_length: 4
 
 translator:
-  dictionary: cqlb.user
+  dictionary: cqlb.ext
   prism: cqlb
   initial_quality: 0
   enable_charset_filter: true
@@ -108,15 +108,18 @@ mkst:
   tips: "〔精准造词〕"
   tag: mkst
 
-simplifier: #繁简转换
+# 繁简转换
+simplifier:
   opencc_config: s2t.json
   option_name: zh_trad
 
-lua_reverse_db: #调用bulid里的spelling_lb文件以此来显示编码和拼音
+# 调用 build 目录的 spelling_lb 文件以此来显示编码和拼音
+lua_reverse_db:
   spelling: spelling_lb
   code: spelling_lb
 
-emoji_suggestion: #emoji表情，调用opencc里的文件
+# emoji 表情，调用 opencc 里的文件
+emoji_suggestion:
   opencc_config: emoji.json
   option_name: emoji_suggestion
   tips: all
@@ -133,14 +136,15 @@ veng:
   enable_sentence: false
   initial_quality: -1
 
-i+: #打 i 键引导临时拼音
+# 打 i 键引导临时拼音
+i+:
   dictionary: ipinyin
   enable_completion: true
   enable_sentence: false
   enable_encoder: false
   enable_user_dict: false
   initial_quality: -10
-  
+
 punctuator:
   import_preset:  symbols #symbols 使用rime自带符号文件|default 不使用
   full_shape: #全半角符号输出，调用symbols，如果常打某个符号，而其却在候选后面，其它候选符号用不到，可以在这里定义
@@ -156,10 +160,10 @@ key_binder:
     - {accept: Tab, send: Page_Down, when: composing}
     - {accept: minus, send: Page_Up, when: has_menu}
     - {accept: equal, send: Page_Down, when: has_menu}
-    - {accept: "Control+Shift+4", toggle: zh_trad, when: always} #繁简开关
-    - {accept: "Control+Shift+G", toggle: emoji_suggestion, when: always} #emoji
-    - {accept: "Control+Shift+H", toggle: new_spelling, when: always} #显隐编码
-    - {accept: "Control+Shift+J", toggle: new_hide_pinyin, when: always} #显隐拼音
+    - {accept: "Control+Shift+4", toggle: zh_trad, when: always}
+    - {accept: "Control+Shift+G", toggle: emoji_suggestion, when: always}
+    - {accept: "Control+Shift+H", toggle: new_spelling, when: always}
+    - {accept: "Control+Shift+J", toggle: new_hide_pinyin, when: always}
     - {accept: "Control+Shift+space", toggle: full_shape, when: always}
     - {accept: "Control+Shift+period", toggle: ascii_punct, when: always}
     - when: composing

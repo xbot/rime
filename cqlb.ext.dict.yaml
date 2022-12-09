@@ -1,5 +1,5 @@
 ---
-name: cqlb.user
+name: cqlb.ext
 version: "1.0"
 sort: by_weight
 columns:
