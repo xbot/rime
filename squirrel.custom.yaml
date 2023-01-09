@@ -1,7 +1,7 @@
 patch:
-  style:
+  # style:
     # color_scheme: dust
-    color_scheme: mojave_dark
+    # color_scheme: mojave_dark
 
   app_options:
     co.zeit.hyper:
