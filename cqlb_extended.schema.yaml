@@ -98,7 +98,6 @@ fixed:
   enable_completion: true
   enable_encoder: true
   enable_user_dict: true
-  db_class: tabledb
 
 mkst:
   __include: /translator
