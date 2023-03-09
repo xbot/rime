@@ -11,8 +11,8 @@ patch:
     - symbols
   schema_list:
     # - {schema: cqlb} #超强二笔
-    # ---------------------------------------------------------------------------------
     - schema: cqlb_extended
+    # - schema: cqlb_weightcode
     - schema: terra_pinyin
     # - schema: double_pinyin_flypy
     # - schema: luna_pinyin_simp

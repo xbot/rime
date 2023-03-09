@@ -42,8 +42,8 @@ engine:
   filters:
     - simplifier
     - lua_filter@new_spelling@spelling
-    - uniquifier
     - simplifier@emoji_suggestion
+    - uniquifier
   processors:
     - ascii_composer
     - recognizer
