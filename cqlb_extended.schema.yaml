@@ -35,7 +35,7 @@ switches:
     reset: 0
     states: [ 简,繁 ]
   - name: emoji_suggestion
-    reset: 0
+    reset: 1
     states: ["🈚️", "🈶"]
 
 engine:

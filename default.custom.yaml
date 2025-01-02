@@ -14,5 +14,5 @@ patch:
     - schema: cqlb_extended
     # - schema: cqlb_weightcode
     - schema: terra_pinyin
-    # - schema: double_pinyin_flypy
+    - schema: double_pinyin_flypy
     # - schema: luna_pinyin_simp
