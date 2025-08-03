@@ -62,7 +62,8 @@ engine:
     - punct_segmentor
     - fallback_segmentor
   translators:
-    - echo_translator
+    # - echo_translator # 注释掉此行可防止空码（即输入码没有对应候选项）时自动上屏。
+                        # 取消注释后，输入未匹配的编码会直接上屏。
     - punct_translator
     - table_translator
     - table_translator@fixed
@@ -76,8 +77,11 @@ speller:
   alphabet: 'abcdefghijklmnopqrstuvwxyz;,./'
   initials: 'abcdefghijklmnopqrstuvwxyz'
   delimiter: "`"
-  auto_clear: max_length
-  auto_select: true 
+  auto_clear: max_length # auto_clear: 自动清空输入码的策略。
+                         #   - manual: 手动清空。例如，输入 "tran" 后，可以删除错误的码重新输入而不必清空整个输入码；也可以按空格或回车键直接上屏；或者按 Esc 键清空输入码。
+                         #   - auto: 自动清空。例如，输入 "tra" 后，此时已无对应候选词，再输入一个无法组成合法编码的键，"tra" 会被自动清除。
+                         #   - max_length: 达到最大码长时自动清空。例如，输入 "tran" 后，再输入第 5 个字符会自动清空。
+  auto_select: true
   max_code_length: 4
 
 translator:
